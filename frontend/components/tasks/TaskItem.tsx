@@ -38,7 +38,15 @@ export function TaskItem({task, busy, onToggle}: TaskItemProps) {
           marginBottom: "0.5rem",
         }}
       >
-        Updated: {new Date(task.updatedAt).toLocaleString()}
+        Updated:{" "}
+        {new Intl.DateTimeFormat("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        }).format(new Date(task.updatedAt))}
       </small>
 
       <div>
