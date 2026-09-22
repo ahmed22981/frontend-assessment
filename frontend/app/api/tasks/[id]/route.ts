@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import { updateTaskInBackend } from "@/lib/backendApi";
+import {NextResponse} from "next/server";
+import {updateTaskInBackend, deleteTaskInBackend} from "@/lib/backendApi";
 
 type RouteParams = {
   params: {
@@ -7,23 +7,45 @@ type RouteParams = {
   };
 };
 
-export async function PATCH(request: Request, { params }: RouteParams) {
+export async function PATCH(request: Request, {params}: RouteParams) {
   try {
-    const payload = (await request.json()) as { completed?: boolean };
+    const payload = (await request.json()) as {completed?: boolean};
 
     if (typeof payload.completed !== "boolean") {
       return NextResponse.json(
-        { error: { message: "completed must be boolean" } },
-        { status: 400 }
+        {error: {message: "completed must be boolean"}},
+        {status: 400},
       );
     }
 
     const task = await updateTaskInBackend(params.id, payload.completed);
-    return NextResponse.json({ data: task }, { status: 200 });
+    return NextResponse.json({data: task}, {status: 200});
   } catch (error) {
     return NextResponse.json(
-      { error: { message: error instanceof Error ? error.message : "Unable to update task." } },
-      { status: 500 }
+      {
+        error: {
+          message:
+            error instanceof Error ? error.message : "Unable to update task.",
+        },
+      },
+      {status: 500},
+    );
+  }
+}
+
+export async function DELETE(request: Request, {params}: RouteParams) {
+  try {
+    await deleteTaskInBackend(params.id);
+    return new NextResponse(null, {status: 204});
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error: {
+          message:
+            error instanceof Error ? error.message : "Unable to delete task.",
+        },
+      },
+      {status: 500},
     );
   }
 }

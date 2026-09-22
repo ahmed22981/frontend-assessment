@@ -16,8 +16,8 @@
   {
     "id": "4398f26b-f527-4eeb-b74c-cd4c0ecc9060",
     "title": "A new task",
-    "completed": true,
+    "completed": false,
     "createdAt": "2026-04-08T10:11:56.354Z",
-    "updatedAt": "2026-09-22T17:17:23.529Z"
+    "updatedAt": "2026-09-22T18:06:37.424Z"
   }
 ]

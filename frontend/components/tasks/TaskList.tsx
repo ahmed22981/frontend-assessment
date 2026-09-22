@@ -5,9 +5,10 @@ type TaskListProps = {
   tasks: Task[];
   updatingTaskId: string;
   onToggle: (task: Task) => void;
+  onDelete: (taskId: string) => void;
 };
 
-export function TaskList({ tasks, updatingTaskId, onToggle }: TaskListProps) {
+export function TaskList({ tasks, updatingTaskId, onToggle, onDelete }: TaskListProps) {
   if (tasks.length === 0) {
     return (
       <section className="card" style={{ padding: "1rem" }}>
@@ -20,7 +21,13 @@ export function TaskList({ tasks, updatingTaskId, onToggle }: TaskListProps) {
     <section aria-label="Task list">
       <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: "0.7rem" }}>
         {tasks.map((task) => (
-          <TaskItem key={task.id} task={task} busy={updatingTaskId === task.id} onToggle={onToggle} />
+          <TaskItem 
+            key={task.id} 
+            task={task} 
+            busy={updatingTaskId === task.id} 
+            onToggle={onToggle} 
+            onDelete={onDelete}
+          />
         ))}
       </ul>
     </section>

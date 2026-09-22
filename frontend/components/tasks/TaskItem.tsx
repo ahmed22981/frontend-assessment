@@ -4,9 +4,10 @@ type TaskItemProps = {
   task: Task;
   busy: boolean;
   onToggle: (task: Task) => void;
+  onDelete: (taskId: string) => void;
 };
 
-export function TaskItem({task, busy, onToggle}: TaskItemProps) {
+export function TaskItem({task, busy, onToggle, onDelete}: TaskItemProps) {
   return (
     <li
       className="card"
@@ -49,7 +50,13 @@ export function TaskItem({task, busy, onToggle}: TaskItemProps) {
         }).format(new Date(task.updatedAt))}
       </small>
 
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <button
           type="button"
           className="button"
@@ -62,6 +69,20 @@ export function TaskItem({task, busy, onToggle}: TaskItemProps) {
             : task.completed
               ? "Mark as Pending"
               : "Mark as Completed"}
+        </button>
+
+        <button
+          type="button"
+          className="button"
+          onClick={() => onDelete(task.id)}
+          disabled={busy}
+          style={{
+            color: "var(--danger)",
+            borderColor: "#ffcbd5",
+            background: "#fff0f3",
+          }}
+        >
+          {busy ? "..." : "Delete"}
         </button>
       </div>
     </li>

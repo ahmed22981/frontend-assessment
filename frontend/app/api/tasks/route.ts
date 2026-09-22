@@ -1,14 +1,44 @@
-import { NextResponse } from "next/server";
-import { getTasksFromBackend } from "@/lib/backendApi";
+import {NextResponse} from "next/server";
+import {getTasksFromBackend, createTaskInBackend} from "@/lib/backendApi";
 
 export async function GET() {
   try {
     const tasks = await getTasksFromBackend();
-    return NextResponse.json({ data: tasks }, { status: 200 });
+    return NextResponse.json({data: tasks}, {status: 200});
   } catch (error) {
     return NextResponse.json(
-      { error: { message: error instanceof Error ? error.message : "Unable to fetch tasks." } },
-      { status: 500 }
+      {
+        error: {
+          message:
+            error instanceof Error ? error.message : "Unable to fetch tasks.",
+        },
+      },
+      {status: 500},
+    );
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const payload = (await request.json()) as {title?: string};
+
+    if (!payload.title || typeof payload.title !== "string") {
+      return NextResponse.json(
+        {error: {message: "Invalid title."}},
+        {status: 400},
+      );
+    }
+    const newTask = await createTaskInBackend(payload.title);
+    return NextResponse.json({data: newTask}, {status: 201});
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error: {
+          message:
+            error instanceof Error ? error.message : "Unable to create task.",
+        },
+      },
+      {status: 500},
     );
   }
 }

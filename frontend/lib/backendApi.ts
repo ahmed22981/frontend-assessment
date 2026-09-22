@@ -102,3 +102,42 @@ export async function getReportsFromBackend(): Promise<TasksSummary> {
     );
   }
 }
+
+export async function createTaskInBackend(title: string): Promise<Task> {
+  try {
+    const response = await fetch(buildBackendUrl("/tasks"), {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({title, completed: false}),
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error(await parseError(response));
+    }
+
+    const body = (await response.json()) as TaskResponse;
+    return body.data;
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : "Failed to create task.",
+    );
+  }
+}
+
+export async function deleteTaskInBackend(taskId: string): Promise<void> {
+  try {
+    const response = await fetch(buildBackendUrl(`/tasks/${taskId}`), {
+      method: "DELETE",
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error(await parseError(response));
+    }
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : "Failed to delete task.",
+    );
+  }
+}
