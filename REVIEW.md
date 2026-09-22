@@ -49,3 +49,9 @@
 - **What is wrong:** The activity items display the exact same timestamp twice per item.
 - **Why it matters:** It clutters the UI with duplicate information, reducing readability and taking up unnecessary vertical space.
 - **Suggested improvement:** Render the formatted timestamp only once per activity item.
+
+**Issue: Incomplete Core User Journey (Missing Task Creation/Deletion)**
+
+- **What is wrong:** The `TaskDashboard` UI lacks any controls to create new tasks or delete existing ones, despite the backend API fully supporting `POST /tasks` and `DELETE /tasks/:id`.
+- **Why it matters:** From a UX and Product perspective, a "Task Management" application where users cannot add or remove tasks is fundamentally incomplete and restricts the user's primary journey.
+- **Suggested improvement:** Implement an "Add Task" input field at the top of the dashboard and a "Delete" (trash) button on each `TaskItem` to provide a complete CRUD experience matching the backend capabilities.
