@@ -30,16 +30,57 @@ a {
   text-decoration: none;
 }
 
+h1,
+h2,
+h3 {
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 main {
   width: min(980px, 100% - 2rem);
   margin: 0 auto;
   padding: 2rem 0 3rem;
+  animation: fadeIn 0.4s ease-out;
 }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -2px rgba(0, 0, 0, 0.03);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+li.card {
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+li.card:hover {
+  border-color: #bac1c9;
+  box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.06);
+}
+
+a.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
 }
 
 .button {
@@ -50,16 +91,23 @@ main {
   padding: 0.45rem 0.8rem;
   font-size: 0.9rem;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .button:hover {
   border-color: #bac1c9;
+  background: #e6e9ec;
 }
 
 .button.primary {
   background: var(--primary);
   border-color: var(--primary);
   color: #fff;
+}
+
+.button.primary:hover {
+  background: #0d4246;
+  border-color: #0d4246;
 }
 
 .badge {
@@ -70,6 +118,10 @@ main {
   padding: 0.2rem 0.65rem;
   font-size: 0.75rem;
   background: var(--chip);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .input {
@@ -79,6 +131,15 @@ main {
   padding: 0.55rem 0.7rem;
   font-size: 0.95rem;
   background: #fff;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .stack {

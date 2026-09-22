@@ -97,14 +97,18 @@ export default function ActivityPage() {
                     key={item.id}
                     style={{
                       borderBottom: "1px solid var(--border)",
-                      paddingBottom: "0.6rem",
+                      paddingBottom: "0.8rem",
+                      display: "grid",
+                      gap: "0.25rem",
                     }}
                   >
                     <div style={{fontWeight: 600}}>
                       {item.action || "(no action)"}
                     </div>
-                    <div>{item.info || "(no info)"}</div>
-                    <small style={{color: "var(--muted)"}}>
+                    <div style={{color: "var(--muted)", fontSize: "0.95rem"}}>
+                      {item.info || "(no info)"}
+                    </div>
+                    <small style={{color: "var(--muted)", fontSize: "0.8rem"}}>
                       {formatTime(item.when)}
                     </small>
                   </li>
